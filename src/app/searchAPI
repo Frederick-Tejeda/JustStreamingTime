@@ -1,0 +1,41 @@
+   const [searchInputValue, setSearchInputValue] = useState("avatar")
+    const [shows, setShows] = useState([])
+
+    useEffect(() => {
+        const FetchData = async () => {
+            const options = {
+                method: 'GET',
+                url: 'https://imdb146.p.rapidapi.com/v1/find/',
+                params: {query: searchInputValue},
+                headers: {
+                    'X-RapidAPI-Key': 'f926bd8046msh8fc4f7d8a15079fp1abd39jsndcb95e31d843',
+                    'X-RapidAPI-Host': 'imdb146.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await axios.request(options);
+                console.log(response.data.titleResults.results);
+                //setShows(response.data.titleResults.results)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        FetchData()
+    }, [])
+
+    /*
+ <div className={styles.container}>
+      <h1>TV Shows Platform</h1>
+      <input style={{color: 'black'}} placeholder="search" value={searchInputValue} onChange={e => {console.log('in', e.target.value); setSearchInputValue(e.target.value)}} />
+      <ul className={styles.showList}>
+        {shows.map((show) => (
+          <li key={show.id}>
+            <Link href={`/show/${show.id}`}>
+                <Image src={show.titlePosterImageModel.url} alt={show.titleNameText} width={100} height={200} />
+                <p>{show.name}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div> */
